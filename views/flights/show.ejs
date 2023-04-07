@@ -1,0 +1,79 @@
+<%- include('../partials/header') %>
+
+<section id="show-page">
+  <div>Airline: <%= flight.airline %></div>
+  <div>Flight Number: <%= flight.flightNo %></div>
+  <div>Departing Airport: <%= flight.airport %></div>
+  <div>Departing Time : <%= flight.departs %></div>
+</section>
+<br><br>
+
+<a href = "/flights/<%= flight._id %>/tickets/new"> Add ticket </a>
+
+<br><br>
+
+
+<!-- Add destinations-->
+<form id="add-destination-form" method="POST" action="/flights/<%= flight._id %>/destinations">
+  <label>Airport</label>
+  <select name="airport">
+    <option value="AUS"> Austin </option>
+    <option value="DFW"> Dallas Forth Worth</option>
+    <option value="DEN" selected> Denver </option>
+    <option value="LAX"> Los Angeles </option>
+    <option value="SAN"> San Francisco </option>
+  </select>
+  <label>   Date/Time:</label>
+  <input type="datetime-local" name="arrival" required ><br>
+  <input type="submit" value="Add Destination">
+</form>
+<br>
+
+<!-- Show current list of tickets -->
+<h3> Current Tickets </h3>
+<% if (tickets.length > 0) { %>
+    <table>
+      <thead>
+        <tr>
+          <th>Seat </th>
+          <th>Price </th>
+        </tr>
+      </thead>
+      <tbody>
+        <% tickets.forEach(function(r) { %>
+          <tr>
+            <td><%= r.seat %></td>
+            <td><%= r.price %></td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  <% } else {   %>
+      <h5> No tickets have been specified</h5>
+  <%}           %>
+
+<!-- Show current list of destinations-->
+<h4> Current Destinations </h4>
+<% if (flight.destinations.length > 0) { %>
+    <table>
+      <thead>
+        <tr>
+          <th>Airport </th>
+          <th>Arrival </th>
+        </tr>
+      </thead>
+      <tbody>
+        <% flight.destinations.forEach(function(r) { %>
+          <tr>
+            <td><%= r.airport %></td>
+            <td><%= r.arrival %></td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  <% } else {   %>
+      <h5> No destinations have been specified</h5>
+  <%}           %>
+
+
+<%- include('../partials/footer') %>

@@ -9,4 +9,8 @@ router.get('/', flightsCtrl.index);
 router.get('/new', flightsCtrl.new);
 router.post('/', flightsCtrl.create)
 
+// GET /movies/:id (show functionality) MUST be below new route
+router.get('/:id', flightsCtrl.show);
+
+
 module.exports = router;
